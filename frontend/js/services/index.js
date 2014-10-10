@@ -1,1 +1,1 @@
-console.log("put services here")
+require('./adService');

@@ -22,11 +22,7 @@ describe("Frontend", function() {
 
 		describe("FilterCtrl", function() {
 
-		    it("should show a default message", inject(function($rootScope, $controller){
-		    	var ctrl, scope = $rootScope.$new();
-		    	ctrl = $controller("FilterCtrl", { $scope: scope });
-		       	expect(scope.message).toEqual("some ads");
-		    })); 
+		  
 		});
 	});
 });

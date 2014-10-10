@@ -1,2 +1,1 @@
-require('./allCtrl');
 require('./filterCtrl');

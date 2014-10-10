@@ -25,7 +25,7 @@ function getMockData() {
 		title : 'My old phone',
 		price : 123,
 		description: 'My old phone broken but otherwise in good shape',
-		category : 'Phones',
+		category : 'phones',
 		contact : {
 			email : 'filip.stenbeck@gmail.com',
 			phone : '0734-481258',
@@ -37,7 +37,7 @@ function getMockData() {
 		title : 'Awesome car',
 		price : 30000,
 		description: 'A Volvo in good shape',
-		category : 'Cars',
+		category : 'cars',
 		contact : {
 			email : 'filip.stenbeck@gmail.com',
 			phone : '0734-481258',
@@ -49,7 +49,7 @@ function getMockData() {
 		title : 'Hire me',
 		price : 30000,
 		description: 'I will cut your hair',
-		category : 'Service',
+		category : 'services',
 		contact : {
 			email : 'filip.stenbeck@gmail.com',
 			phone : '0734-481258',

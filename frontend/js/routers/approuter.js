@@ -5,19 +5,11 @@ require('angular-route');
 
 require('angular').module('classified').config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'templates/main.html',
-        controller: 'AllCtrl'
-      })
-      .when('/all', {
-        templateUrl: 'templates/main.html',
-        controller: 'AllCtrl'
-      })
-      .when('/filter', {
-        templateUrl: 'templates/main.html',
+      .when('/list', {
+        templateUrl: 'templates/list.html',
         controller: 'FilterCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/list'
       });
   });
