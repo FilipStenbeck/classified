@@ -1,0 +1,21 @@
+{
+  "name": "classified-backend",
+  "version": "0.0.1",
+  "description": "classified frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FilipStenbeck/classified.git"
+  },
+  "author": "Filip Stenbeck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FilipStenbeck/classified/issues"
+  },
+  "dependencies": {
+    "express": "~4.9.6"
+  }
+}
