@@ -1,4 +1,6 @@
 var express = require('express'),
+	DataManager = require('./db/dataManager'),
+	db = new DataManager();
 	Ad = require('./models/ad')
 	app = express(),
 	port = 9000;
@@ -59,19 +61,33 @@ function getMockData() {
 	return data;
 }
 
+//Send response back to clients
+function sendResponse (err, ads, res) {
+	if (err) {
+   		console.log(err);
+   		res.send([]);
+   		return;	
+   	}
+   	res.send(ads);
+};	
+
+
+/*****************************************
+	REST resources
+*****************************************/
 //Get all ads
 app.get("/ad", function(req, res) {
-   res.send(getMockData());
- });
+	db.getAd({}, function (err, ads) {
+   		sendResponse (err, ads, res);
+ 	});
+});
 
 //get ads based on category
 app.get('/ad/:category', function (req, res) {
 	var category = req.params.category;
-	var data = getMockData();
-	var filtered = data.filter(function (ad) {
-	 	return ad.category === category
-	});
-	res.send(filtered);
+	db.getAd({category : category}, function (err, ads) {
+   		sendResponse (err, ads, res);
+ 	});
 });
 
 //New ad
@@ -85,6 +101,19 @@ app.delete('/ad/:id', function (req, res) {
 	console.log("Delete ad");
 });
 
- app.listen(port, function() {
+//Initialize database
+db.on('error', function(error) {
+	console.log(error);
+	throw error;
+});
+
+db.on('ready', function(error) {
+	console.log('Database ready');
+});
+
+db.init();
+
+//Start server
+app.listen(port, function() {
    console.log("Listening on " + port);
  });
