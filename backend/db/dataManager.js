@@ -24,13 +24,10 @@ DataManager.prototype.saveAd = function saveAd (ad, callback) {
 	});
 };
 
-
 DataManager.prototype.getAd = function getAd (query, callback) {
 	db.find(query, function (err, docs) {
 		callback(err, docs)		
 	});
-};
-	
+};	
 
 module.exports = DataManager;
-

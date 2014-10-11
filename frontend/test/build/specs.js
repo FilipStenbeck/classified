@@ -22971,16 +22971,12 @@ require('angular').module('classified', ['ngRoute']);
 require('./routers/approuter');
 require('./controllers');
 require('./services');
-
-
-
-
-
 },{"./controllers":5,"./routers/approuter":7,"./services":10,"angular":2}],4:[function(require,module,exports){
 require('angular').module('classified').controller('FilterCtrl', function ($scope, $rootScope, $routeParams, adService, filterService) {
 	var topic = $routeParams.topic,
 		iconUtil = require('../utils/iconUtil');
 
+		$scope.ads = [];
 		$scope.search = filterService.getFilter();
 		$scope.message = ($routeParams.topic === undefined) ? 'ALL' : $routeParams.topic.toUpperCase();
 
@@ -25297,29 +25293,89 @@ require('angular-mocks');
 require('../../js/app');
 
 var BACKEND_URL = "http://localhost:9000";
+var specHelper = require('./specHelper');
+var data = specHelper.mockData;
 
-describe("Frontend", function() {
+describe("Classified frontend", function() {
  
     beforeEach(window.angular.mock.module("classified"))
   	
-  	describe("Controllers", function() {
+    describe("Controllers", function() {
 
-    	describe("AllCtrl", function() {
+	  	describe("FilterCtrl", function() {
+	  		it("should get ads from the server", inject(function($rootScope, $controller, $httpBackend){
+				var ctrl, scope = $rootScope.$new();
+	        		
+			    ctrl = $controller("FilterCtrl", { $scope: scope });
+	        	$httpBackend.when("GET", BACKEND_URL + "/ad").respond(data);
+			       	
+			    //No ads before getting data from server
+			    expect(scope.ads).toEqual([]);
+			       	
+			    $httpBackend.flush();
+			       	
+			    //Should have ads
+			    expect(scope.ads.length).toBeGreaterThan(0);
+			}));
 
-		    it("should show a default message", inject(function($rootScope, $controller){
-		    	var ctrl, scope = $rootScope.$new();
-		    	ctrl = $controller("AllCtrl", { $scope: scope });
-		       	expect(scope.message).toEqual("all ads");
-		    })); 
-		});
+			it("All ads coming from the server should have ids", inject(function($rootScope, $controller, $httpBackend){
+				var ctrl, scope = $rootScope.$new();
+	        		
+			    ctrl = $controller("FilterCtrl", { $scope: scope });
+	        	$httpBackend.when("GET", BACKEND_URL + "/ad").respond(data);
+			       	
+			    //No ads before getting data from server
+			    expect(scope.ads).toEqual([]);
+			       	
+			    $httpBackend.flush();
+			       	
+			 	//Ads from server should have 
+			    expect(scope.ads[0]._id).toEqual(data[0]._id);
 
-		describe("FilterCtrl", function() {
-
-		  
+			}));
 		});
 	});
 });
-},{"../../js/app":3,"angular":2,"angular-mocks":12}],14:[function(require,module,exports){
+
+},{"../../js/app":3,"./specHelper":15,"angular":2,"angular-mocks":12}],14:[function(require,module,exports){
 require('./frontendSpec.js');
 
-},{"./frontendSpec.js":13}]},{},[14]);
+},{"./frontendSpec.js":13}],15:[function(require,module,exports){
+var helper = {};
+
+helper.mockData = [ { title: 'Opel',
+price: '123442',
+description: 'en gammal opel corsa',
+category: 'cars',
+contact: { email: '', phone: '', city: '' },
+_id: 'UefVhg4kWS2V5C22' },
+{ title: 'Saab 90 turbo',
+price: 30000,
+description: 'A white Saab in mint condition, perfect car if you have a hat and are over 65 years old',
+category: 'cars',
+contact: 
+ { email: 'filip.stenbeck@gmail.com',
+   phone: '0734-481258',
+   city: 'Gustavsberg' },
+_id: 'dwbDeZmscAdpJfar' },
+{ title: 'Awesome car',
+price: 30000,
+description: 'A Volvo in good shape',
+category: 'cars',
+contact: 
+ { email: 'filip.stenbeck@gmail.com',
+   phone: '0734-481258',
+   city: 'Gustavsberg' },
+_id: 'dwbDeZmscAdpJhat' },
+{ title: 'Rostig bil',
+price: 123432,
+description: 'En rostig bil som sälkjes i befintligt skick. OBS köparen ansvarar för att skälv forsla bort bilen då den inte går att köra',
+category: 'cars',
+contact: 
+ { email: 'Foo.Svensson@telia.com',
+   phone: '08-122334',
+   city: 'Stockholm' },
+_id: 'rQ8rDyJ74WOabB7A' } ];
+
+module.exports = helper;
+},{}]},{},[14]);

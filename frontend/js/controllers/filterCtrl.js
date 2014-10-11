@@ -2,6 +2,7 @@ require('angular').module('classified').controller('FilterCtrl', function ($scop
 	var topic = $routeParams.topic,
 		iconUtil = require('../utils/iconUtil');
 
+		$scope.ads = [];
 		$scope.search = filterService.getFilter();
 		$scope.message = ($routeParams.topic === undefined) ? 'ALL' : $routeParams.topic.toUpperCase();
 

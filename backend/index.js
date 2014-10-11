@@ -6,17 +6,16 @@ var express = require('express'),
 	app = express(),
 	port = 9000;
 
-
 /**************************************
  Server configuration
 **************************************/
 function allowCrossDomain (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
 
     if ('OPTIONS' == req.method) {
-      res.status(200).end()
+      res.status(200).end();
     }
     else {
       next();
@@ -53,11 +52,6 @@ app.post('/ad', function (req, res) {
 	});
 });
 
-//Delete ad
-app.delete('/ad/:id', function (req, res) {
-	console.log("Delete ad");
-});
-
 /**************************************
 Database inititaliziation
 **************************************/
@@ -72,12 +66,11 @@ db.on('ready', function(error) {
 
 db.init();
 
-
 //Send response back to clients
 function sendResponse (err, ads, res) {
 	if (err) {
    		console.log(err);
-   		res.send([]);
+   		 res.status(500).end()
    		return;	
    	}
    	res.send(ads);

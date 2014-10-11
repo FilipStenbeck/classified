@@ -22971,16 +22971,12 @@ require('angular').module('classified', ['ngRoute']);
 require('./routers/approuter');
 require('./controllers');
 require('./services');
-
-
-
-
-
 },{"./controllers":5,"./routers/approuter":7,"./services":10,"angular":2}],4:[function(require,module,exports){
 require('angular').module('classified').controller('FilterCtrl', function ($scope, $rootScope, $routeParams, adService, filterService) {
 	var topic = $routeParams.topic,
 		iconUtil = require('../utils/iconUtil');
 
+		$scope.ads = [];
 		$scope.search = filterService.getFilter();
 		$scope.message = ($routeParams.topic === undefined) ? 'ALL' : $routeParams.topic.toUpperCase();
 
