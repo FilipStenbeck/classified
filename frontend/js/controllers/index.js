@@ -1,1 +1,2 @@
 require('./filterCtrl');
+require('./newCtrl');

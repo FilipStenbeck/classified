@@ -11,7 +11,17 @@ require('angular').module('classified').factory('adService', function ($http) {
         }).error(function(data, status, headers, config) {
         	console.log("Error getting data status: ", status);
         });
-    }
+    };
+
+    var makePostRequest = function  (ad, callback) {
+        $http.post(ROOT_URL, ad).
+          success(function(data, status, headers, config) {
+            console.log("success")
+          }).
+          error(function(data, status, headers, config) {
+            console.log("foooo")
+          });
+    };
 
     return {        
         getAllAds : function (callback) {
@@ -19,6 +29,9 @@ require('angular').module('classified').factory('adService', function ($http) {
         },
         getSomeAds : function (filter, callback) {
             makeGetRequest(ROOT_URL + '/' + filter, callback);  
+        },
+        save : function (ad, callback) {
+            makePostRequest(ad, callback);
         }
     };
 });

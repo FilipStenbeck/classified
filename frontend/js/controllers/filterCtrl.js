@@ -1,6 +1,6 @@
 require('angular').module('classified').controller('FilterCtrl', function ($scope, $routeParams, adService) {
 	var topic = $routeParams.topic;
-	
+
 	var populateAds = function (data) {
 		console.log(data)
 		$scope.ads = data;

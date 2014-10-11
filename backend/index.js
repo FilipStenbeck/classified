@@ -1,4 +1,5 @@
 var express = require('express'),
+	bodyParser = require('body-parser'),
 	DataManager = require('./db/dataManager'),
 	db = new DataManager();
 	Ad = require('./models/ad')
@@ -23,6 +24,8 @@ function allowCrossDomain (req, res, next) {
 };
 
 app.use(allowCrossDomain);
+app.use(bodyParser.json()); 
+
 
 //Send response back to clients
 function sendResponse (err, ads, res) {
@@ -61,6 +64,7 @@ app.get("/populatedb", function(req, res) {
 //New ad
 app.post('/ad', function (req, res) {
 	var ad = req.body;
+	console.log(ad)
 	res.send(ad);
 });
 

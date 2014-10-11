@@ -22977,10 +22977,10 @@ require('./services');
 
 
 
-},{"./controllers":5,"./directives":6,"./routers/approuter":7,"./services":9,"angular":2}],4:[function(require,module,exports){
+},{"./controllers":5,"./directives":7,"./routers/approuter":8,"./services":10,"angular":2}],4:[function(require,module,exports){
 require('angular').module('classified').controller('FilterCtrl', function ($scope, $routeParams, adService) {
 	var topic = $routeParams.topic;
-	
+
 	var populateAds = function (data) {
 		console.log(data)
 		$scope.ads = data;
@@ -22994,27 +22994,45 @@ require('angular').module('classified').controller('FilterCtrl', function ($scop
 });
 },{"angular":2}],5:[function(require,module,exports){
 require('./filterCtrl');
+require('./newCtrl');
+},{"./filterCtrl":4,"./newCtrl":6}],6:[function(require,module,exports){
+require('angular').module('classified').controller('NewCtrl', function ($scope, adService) {
 
-},{"./filterCtrl":4}],6:[function(require,module,exports){
+	$scope.onNew = function () {
+		adService.save($scope.ad, function (resp) {
+			//Clear form data
+		 	$scope.ad = {};
+
+		 	//print message
+		 	console.log(resp)
+		});
+	}
+});
+
+},{"angular":2}],7:[function(require,module,exports){
 console.log("put directives here")
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 require('angular');
 require('angular-route');
 
 require('angular').module('classified').config(function ($routeProvider) {
-    $routeProvider
-      .when('/list', {
-        templateUrl: 'templates/list.html',
+	$routeProvider
+	.when('/list', {
+    	templateUrl: 'templates/list.html',
         controller: 'FilterCtrl'
-      })
-      .otherwise({
-        redirectTo: '/list'
-      });
-  });
+   	})
+	.when('/new', {
+    	templateUrl: 'templates/new.html',
+        controller: 'NewCtrl'
+   	})
+    .otherwise({
+    	redirectTo: '/list'
+    });
+});
 
-},{"angular":2,"angular-route":1}],8:[function(require,module,exports){
+},{"angular":2,"angular-route":1}],9:[function(require,module,exports){
 require('angular').module('classified').factory('adService', function ($http) {
 
    var ROOT_URL = 'http://localhost:9000/ad';
@@ -23028,7 +23046,17 @@ require('angular').module('classified').factory('adService', function ($http) {
         }).error(function(data, status, headers, config) {
         	console.log("Error getting data status: ", status);
         });
-    }
+    };
+
+    var makePostRequest = function  (ad, callback) {
+        $http.post(ROOT_URL, ad).
+          success(function(data, status, headers, config) {
+            console.log("success")
+          }).
+          error(function(data, status, headers, config) {
+            console.log("foooo")
+          });
+    };
 
     return {        
         getAllAds : function (callback) {
@@ -23036,11 +23064,14 @@ require('angular').module('classified').factory('adService', function ($http) {
         },
         getSomeAds : function (filter, callback) {
             makeGetRequest(ROOT_URL + '/' + filter, callback);  
+        },
+        save : function (ad, callback) {
+            makePostRequest(ad, callback);
         }
     };
 });
 
-},{"angular":2}],9:[function(require,module,exports){
+},{"angular":2}],10:[function(require,module,exports){
 require('./adService');
 
-},{"./adService":8}]},{},[3]);
+},{"./adService":9}]},{},[3]);

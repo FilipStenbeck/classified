@@ -31,3 +31,7 @@
 .ad ul { 
 	list-style-type: none; 
 }
+
+.new-ad form {
+	max-width: 480px;
+}
