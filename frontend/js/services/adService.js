@@ -19,7 +19,7 @@ require('angular').module('classified').factory('adService', function ($http) {
             callback(data);
           }).
           error(function(data, status, headers, config) {
-            console.log("foooo")
+            console.log("Error getting data status: ", status);
           });
     };
 

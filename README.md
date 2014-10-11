@@ -21,6 +21,10 @@ Frontend is build on AngularJS and uses Bootstrap for layout. It uses both commo
 ## Run
 * Run frontend by typing node webserver.js in $ROOT$/frontend
 * You can also type grunt serve (if you want to build project than run it)
+* Open browser and go tu URL http://localhost:9001/
+
+## Test
+Jasmine is used for testing and can be run by pointing browser to http://localhost:9001/test/SpecRunner.html
 
 Backend
 ------------
@@ -31,7 +35,7 @@ Backend is build on node & express and uses NeDB to store data.
 * install all backend dependencies (including database) by running 'npm install' in project $ROOT$/backend
 
 ## Run
-* Start server by typing node index.js in project $ROOT$/backend.
+* Start server by typing 'node index.js' in project $ROOT$/backend.
 
 
 
