@@ -1,3 +1,22 @@
-  <div ng-repeat="ad in ads">
-  <div> {{ad.title}} </div>
+<div ng-repeat="ad in ads">
+  <div class="ad"> 
+	<div class="main">
+		<span class="title">{{ad.title}}</span>
+		<p>
+			<div>{{ad.description}}</div>
+		</p>
+		<p>
+			<div>Price: {{ad.price}} </div>
+		</p>
+	</div>
+	<hr>
+	<div class="contact">
+		<span class="title">Contact information</span> 
+		<ul>
+			<li>Email: {{ad.contact.email}}</li>
+			<li>Phone: {{ad.contact.phone}}</li>
+			<li>city: {{ad.contact.city}}</li>
+		</ul>
+	</div>
   </div>
+</div>

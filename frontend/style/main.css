@@ -2,3 +2,32 @@
 	font-size: 3em;
 	font-family: 'Josefin Slab', serif;
 }
+
+.page-header .btn {
+	margin-right: 10px;
+}
+
+.ad {
+	border: 1px solid #adadad;
+	float: left;
+	width: 30%;
+	padding: 10px 10px 10px 10px;
+	margin: 5px;
+	border-radius: 5px;
+	min-width: 300px;
+	min-height: 300px;
+}
+
+.ad .title {
+	font-size: 1.3em;
+}
+
+.ad .main {
+	min-height: 140px;
+	max-height: 140px;
+	overflow-y: auto
+}
+
+.ad ul { 
+	list-style-type: none; 
+}

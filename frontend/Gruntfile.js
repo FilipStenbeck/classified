@@ -29,6 +29,7 @@ module.exports = function (grunt) {
               },
               files: [
                   '*.html',
+              'templates/{,*/}*.css',
                   'style/{,*/}*.css',
                   'build/browserify-bundle.js',
                   'test/build/specs.js'

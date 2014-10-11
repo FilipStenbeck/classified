@@ -22982,6 +22982,7 @@ require('angular').module('classified').controller('FilterCtrl', function ($scop
 	var topic = $routeParams.topic;
 	
 	var populateAds = function (data) {
+		console.log(data)
 		$scope.ads = data;
 	}
 	//If there is a filter get only matching ads.

@@ -5,7 +5,11 @@ var express = require('express'),
 	app = express(),
 	port = 9000;
 
-var allowCrossDomain = function(req, res, next) {
+
+/**************************************
+ Server configuration
+**************************************/
+function allowCrossDomain (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -19,47 +23,6 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 app.use(allowCrossDomain);
-
-//Get mock data
-function getMockData() {
-	var data = [];
-	data.push( new Ad({
-		title : 'My old phone',
-		price : 123,
-		description: 'My old phone broken but otherwise in good shape',
-		category : 'phones',
-		contact : {
-			email : 'filip.stenbeck@gmail.com',
-			phone : '0734-481258',
-			city : 'Gustavsberg'
-		},
-	}));
-	
-	data.push(new Ad({
-		title : 'Awesome car',
-		price : 30000,
-		description: 'A Volvo in good shape',
-		category : 'cars',
-		contact : {
-			email : 'filip.stenbeck@gmail.com',
-			phone : '0734-481258',
-			city : 'Gustavsberg'
-		},
-	}));
-
-	data.push(new Ad({
-		title : 'Hire me',
-		price : 30000,
-		description: 'I will cut your hair',
-		category : 'services',
-		contact : {
-			email : 'filip.stenbeck@gmail.com',
-			phone : '0734-481258',
-			city : 'Gustavsberg'
-		},
-	}));
-	return data;
-}
 
 //Send response back to clients
 function sendResponse (err, ads, res) {
@@ -90,6 +53,11 @@ app.get('/ad/:category', function (req, res) {
  	});
 });
 
+app.get("/populatedb", function(req, res) {
+	db.populate();
+});
+
+
 //New ad
 app.post('/ad', function (req, res) {
 	var ad = req.body;
@@ -101,7 +69,10 @@ app.delete('/ad/:id', function (req, res) {
 	console.log("Delete ad");
 });
 
-//Initialize database
+
+/**************************************
+Database inititaliziation
+**************************************/
 db.on('error', function(error) {
 	console.log(error);
 	throw error;
@@ -113,7 +84,8 @@ db.on('ready', function(error) {
 
 db.init();
 
-//Start server
+
+//Start listen for req
 app.listen(port, function() {
    console.log("Listening on " + port);
  });

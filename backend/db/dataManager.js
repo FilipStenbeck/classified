@@ -1,7 +1,7 @@
 var Datastore = require('nedb'),
 	util = require("util"),
 	events = require("events"),
-   	db = new Datastore({ filename: './store.db' });
+   	db = new Datastore({ filename: './db/store.db' });
 
 function DataManager() {
     events.EventEmitter.call(this);
@@ -24,13 +24,13 @@ DataManager.prototype.saveAd = function saveAd (ad, callback) {
 	});
 };
 
+
 DataManager.prototype.getAd = function getAd (query, callback) {
 	db.find(query, function (err, docs) {
 		callback(err, docs)		
 	});
 };
-
-
+	
 
 module.exports = DataManager;
 
