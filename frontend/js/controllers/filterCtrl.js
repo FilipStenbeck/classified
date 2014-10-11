@@ -1,14 +1,24 @@
-require('angular').module('classified').controller('FilterCtrl', function ($scope, $routeParams, adService) {
-	var topic = $routeParams.topic;
+require('angular').module('classified').controller('FilterCtrl', function ($scope, $rootScope, $routeParams, adService, filterService) {
+	var topic = $routeParams.topic,
+		iconUtil = require('../utils/iconUtil');
 
-	var populateAds = function (data) {
-		console.log(data)
-		$scope.ads = data;
-	}
-	//If there is a filter get only matching ads.
+		$scope.search = filterService.getFilter();
+		$scope.message = ($routeParams.topic === undefined) ? 'ALL' : $routeParams.topic.toUpperCase();
+
+		showAds = function (data) {
+			data.forEach(function (ad) {
+				ad.icon = iconUtil(ad.category);
+			});
+			$scope.ads = data;
+		};
+	
+	$scope.$watch('search', function(newval, old) {
+       filterService.setFilter(newval);
+   	});
+
 	if (topic) {
-		adService.getSomeAds(topic, populateAds);
+		adService.getSomeAds(topic, showAds);
 	} else {
-		adService.getAllAds(populateAds);
+		adService.getAllAds(showAds);
 	}
 });

@@ -22970,48 +22970,54 @@ var styleDirective = valueFn({
 require('angular').module('classified', ['ngRoute']);
 require('./routers/approuter');
 require('./controllers');
-require('./directives');
 require('./services');
 
 
 
 
 
-},{"./controllers":5,"./directives":7,"./routers/approuter":8,"./services":10,"angular":2}],4:[function(require,module,exports){
-require('angular').module('classified').controller('FilterCtrl', function ($scope, $routeParams, adService) {
-	var topic = $routeParams.topic;
+},{"./controllers":5,"./routers/approuter":7,"./services":10,"angular":2}],4:[function(require,module,exports){
+require('angular').module('classified').controller('FilterCtrl', function ($scope, $rootScope, $routeParams, adService, filterService) {
+	var topic = $routeParams.topic,
+		iconUtil = require('../utils/iconUtil');
 
-	var populateAds = function (data) {
-		console.log(data)
-		$scope.ads = data;
-	}
-	//If there is a filter get only matching ads.
+		$scope.search = filterService.getFilter();
+		$scope.message = ($routeParams.topic === undefined) ? 'ALL' : $routeParams.topic.toUpperCase();
+
+		showAds = function (data) {
+			data.forEach(function (ad) {
+				ad.icon = iconUtil(ad.category);
+			});
+			$scope.ads = data;
+		};
+	
+	$scope.$watch('search', function(newval, old) {
+       filterService.setFilter(newval);
+   	});
+
 	if (topic) {
-		adService.getSomeAds(topic, populateAds);
+		adService.getSomeAds(topic, showAds);
 	} else {
-		adService.getAllAds(populateAds);
+		adService.getAllAds(showAds);
 	}
 });
-},{"angular":2}],5:[function(require,module,exports){
+},{"../utils/iconUtil":11,"angular":2}],5:[function(require,module,exports){
 require('./filterCtrl');
 require('./newCtrl');
 },{"./filterCtrl":4,"./newCtrl":6}],6:[function(require,module,exports){
-require('angular').module('classified').controller('NewCtrl', function ($scope, adService) {
+require('angular').module('classified').controller('NewCtrl', function ($scope, adService, $location) {
+
+	$scope.show = false;
 
 	$scope.onNew = function () {
 		adService.save($scope.ad, function (resp) {
-			//Clear form data
-		 	$scope.ad = {};
-
-		 	//print message
-		 	console.log(resp)
+			$scope.ad = {};
+			$scope.show = true;
 		});
 	}
 });
 
 },{"angular":2}],7:[function(require,module,exports){
-console.log("put directives here")
-},{}],8:[function(require,module,exports){
 'use strict';
 
 require('angular');
@@ -23032,7 +23038,7 @@ require('angular').module('classified').config(function ($routeProvider) {
     });
 });
 
-},{"angular":2,"angular-route":1}],9:[function(require,module,exports){
+},{"angular":2,"angular-route":1}],8:[function(require,module,exports){
 require('angular').module('classified').factory('adService', function ($http) {
 
    var ROOT_URL = 'http://localhost:9000/ad';
@@ -23051,7 +23057,7 @@ require('angular').module('classified').factory('adService', function ($http) {
     var makePostRequest = function  (ad, callback) {
         $http.post(ROOT_URL, ad).
           success(function(data, status, headers, config) {
-            console.log("success")
+            callback(data);
           }).
           error(function(data, status, headers, config) {
             console.log("foooo")
@@ -23071,10 +23077,42 @@ require('angular').module('classified').factory('adService', function ($http) {
     };
 });
 
+},{"angular":2}],9:[function(require,module,exports){
+require('angular').module('classified').factory('filterService', function ($http) {
+
+    var filter = "";
+
+    return {        
+        getFilter : function () {
+            return filter;  
+        },
+        setFilter : function (newfilter) {
+            filter = newfilter;  
+        }
+    };
+});
 },{"angular":2}],10:[function(require,module,exports){
 require('./adService');
+require('./filterService');
 
-},{"./adService":9}],11:[function(require,module,exports){
+},{"./adService":8,"./filterService":9}],11:[function(require,module,exports){
+module.exports = function (category) {
+	var icon = '';
+	switch (category) {
+		case 'cars' :
+		icon = '../img/car.png';
+		break;
+
+		case  'phones' :
+		icon =  '../img/phone.png';
+		break;
+
+		case  'services' :
+		icon = '../img/service.png';
+	}
+	return icon;
+}
+},{}],12:[function(require,module,exports){
 /**
  * @license AngularJS v1.2.25
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -25252,7 +25290,7 @@ if(window.jasmine || window.mocha) {
 
 
 })(window, window.angular);
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 require('angular');
 require('angular-mocks');
 
@@ -25281,7 +25319,7 @@ describe("Frontend", function() {
 		});
 	});
 });
-},{"../../js/app":3,"angular":2,"angular-mocks":11}],13:[function(require,module,exports){
+},{"../../js/app":3,"angular":2,"angular-mocks":12}],14:[function(require,module,exports){
 require('./frontendSpec.js');
 
-},{"./frontendSpec.js":12}]},{},[13]);
+},{"./frontendSpec.js":13}]},{},[14]);

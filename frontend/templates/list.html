@@ -1,23 +1,27 @@
-<div ng-repeat="ad in ads">
-  <div class="ad">
-  {{msg}} 
-	<div class="main">
-		<span class="title">{{ad.title}}</span>
-		<p>
-			<div>{{ad.description}}</div>
-		</p>
-		<p>
-			<div>Price: {{ad.price}} </div>
-		</p>
+<div class="ad-list">
+	<h2>{{message}}</h2> 
+	<input class="filter form-control" ng-model="search" placeholder="Free text filter">
+	<div ng-repeat="ad in ads | filter:search">
+	  <div class="ad">
+		<div class="main">
+			<span class="title">{{ad.title}}</span>
+			<img class="pull-right" src={{ad.icon}}>
+			<p>
+				<div>{{ad.description}}</div>
+			</p>
+			<p>
+				<div>Price: {{ad.price | number}} :- </div>
+			</p>
+		</div>
+		<hr>
+		<div class="contact">
+			<span class="title">Contact information</span> 
+			<ul>
+				<li>Email: {{ad.contact.email}}</li>
+				<li>Phone: {{ad.contact.phone}}</li>
+				<li>City: {{ad.contact.city}}</li>
+			</ul>
+		</div>
+	  </div>
 	</div>
-	<hr>
-	<div class="contact">
-		<span class="title">Contact information</span> 
-		<ul>
-			<li>Email: {{ad.contact.email}}</li>
-			<li>Phone: {{ad.contact.phone}}</li>
-			<li>city: {{ad.contact.city}}</li>
-		</ul>
-	</div>
-  </div>
 </div>

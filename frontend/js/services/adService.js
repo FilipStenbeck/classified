@@ -16,7 +16,7 @@ require('angular').module('classified').factory('adService', function ($http) {
     var makePostRequest = function  (ad, callback) {
         $http.post(ROOT_URL, ad).
           success(function(data, status, headers, config) {
-            console.log("success")
+            callback(data);
           }).
           error(function(data, status, headers, config) {
             console.log("foooo")

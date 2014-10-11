@@ -1,1 +1,2 @@
 require('./adService');
+require('./filterService');

@@ -16,7 +16,7 @@ function allowCrossDomain (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
 
     if ('OPTIONS' == req.method) {
-      res.send(200);
+      res.status(200).end()
     }
     else {
       next();
@@ -25,18 +25,7 @@ function allowCrossDomain (req, res, next) {
 
 app.use(allowCrossDomain);
 app.use(bodyParser.json()); 
-
-
-//Send response back to clients
-function sendResponse (err, ads, res) {
-	if (err) {
-   		console.log(err);
-   		res.send([]);
-   		return;	
-   	}
-   	res.send(ads);
-};	
-
+	
 
 /*****************************************
 	REST resources
@@ -56,23 +45,18 @@ app.get('/ad/:category', function (req, res) {
  	});
 });
 
-app.get("/populatedb", function(req, res) {
-	db.populate();
-});
-
-
 //New ad
 app.post('/ad', function (req, res) {
-	var ad = req.body;
-	console.log(ad)
-	res.send(ad);
+	var ad = new Ad(req.body);
+	db.saveAd(ad, function (err, data) {
+		res.send(ad);
+	});
 });
 
 //Delete ad
 app.delete('/ad/:id', function (req, res) {
 	console.log("Delete ad");
 });
-
 
 /**************************************
 Database inititaliziation
@@ -88,6 +72,16 @@ db.on('ready', function(error) {
 
 db.init();
 
+
+//Send response back to clients
+function sendResponse (err, ads, res) {
+	if (err) {
+   		console.log(err);
+   		res.send([]);
+   		return;	
+   	}
+   	res.send(ads);
+};
 
 //Start listen for req
 app.listen(port, function() {

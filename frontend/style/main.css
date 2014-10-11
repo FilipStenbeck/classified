@@ -7,6 +7,14 @@
 	margin-right: 10px;
 }
 
+.ad-list h2 {
+	font-family: 'Josefin Slab', serif;
+}
+
+.ad-list .filter {
+	margin: 0px 5px 25px 0px;
+}
+
 .ad {
 	border: 1px solid #adadad;
 	float: left;
@@ -27,6 +35,24 @@
 	max-height: 140px;
 	overflow-y: auto
 }
+
+.ad .main img {
+	width: 40px;
+}
+
+.ad .contact {
+	background-color: f5f5f5;
+	border-radius: 5px;
+	margin: -5;
+	overflow: hidden;
+	margin-top: -9px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.ad .contact .title{
+	margin: 36px;
+}	
 
 .ad ul { 
 	list-style-type: none; 
