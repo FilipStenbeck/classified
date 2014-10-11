@@ -8,7 +8,7 @@ This projects consists of two sub project
 
 Frontend
 ------------
-Frontend is build on AngularJS and uses Bootstrap for layout. It uses both commonJS and Bower and uses grunt for build tasks.  
+Frontend is build on AngularJS and uses Bootstrap for layout. It uses both commonJS and Bower and uses grunt for build-tasks.  
 
 ## Installation
 * install node (if you don´t already have)
@@ -20,8 +20,8 @@ Frontend is build on AngularJS and uses Bootstrap for layout. It uses both commo
 
 ## Run
 * Run frontend by typing node webserver.js in $ROOT$/frontend
-* You can also type grunt serve (if you want to build project than run it)
-* Open browser and go tu URL http://localhost:9001/
+* You can also type grunt serve (if you want to build project, and then run it)
+* Open browser and go to URL http://localhost:9001/
 
 ## Test
 Jasmine is used for testing and can be run by pointing browser to http://localhost:9001/test/SpecRunner.html
