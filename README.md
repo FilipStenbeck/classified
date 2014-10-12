@@ -12,7 +12,7 @@ Frontend is build on AngularJS and uses Bootstrap for layout.
 
 ## Installation
 * install node (if you don´t already have)
-* install Bower 'npm install bower -g'
+* install Bower 'npm install bower -g' (bower uses git so make sure you have git installed aswell)
 * install Grunt 'npm install grunt -g' (if you want to build the project, not necessary for running it)
 * install all frontend dependencies by running first 'npm install' in project $ROOT$/frontend
 * then 'bower install' in project $ROOT$/frontend
