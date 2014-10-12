@@ -22977,25 +22977,25 @@ require('angular').module('classified').controller('FilterCtrl', function ($scop
 		filter = $routeParams.filter;
 		iconUtil = require('../utils/iconUtil');
 		$scope.ads = [];
-		
-		if (filter) {
-			filterService.setFilter(filter);
-		}
-		
-		$scope.search = filterService.getFilter();
-		$scope.message = ($routeParams.topic === undefined) ? 'ALL' : $routeParams.topic.toUpperCase();
 
-		showAds = function (data) {
-			data.forEach(function (ad) {
-				ad.icon = iconUtil(ad.category);
-			});
-			$scope.ads = data;
-		};
-	
+	//ste category message
+	$scope.message = ($routeParams.topic === undefined) ? 'ALL' : $routeParams.topic.toUpperCase();
+
+	//handle freetext filter	
+	if (filter) {
+		filterService.setFilter(filter);
+	}
+	$scope.search = filterService.getFilter();
 	$scope.$watch('search', function(newval, old) {
        filterService.setFilter(newval);
    	});
 
+	//set an icon on each ad and then update UI
+	showAds = function (data) {
+		$scope.ads = iconUtil(data);
+	};
+	
+	//Get ads from server
 	if (topic) {
 		adService.getSomeAds(topic, showAds);
 	} else {
@@ -23097,21 +23097,29 @@ require('./adService');
 require('./filterService');
 
 },{"./adService":8,"./filterService":9}],11:[function(require,module,exports){
-module.exports = function (category) {
-	var icon = '';
-	switch (category) {
-		case 'cars' :
-		icon = '../img/car.png';
-		break;
+module.exports = function (ads) {
+	
+	function getIcon (category) {
+		var icon = '';
+		switch (category) {
+			case 'cars' :
+			icon = '../img/car.png';
+			break;
 
-		case  'phones' :
-		icon =  '../img/phone.png';
-		break;
+			case  'phones' :
+			icon =  '../img/phone.png';
+			break;
 
-		case  'services' :
-		icon = '../img/service.png';
+			case  'services' :
+			icon = '../img/service.png';
+		}
+		return icon;
 	}
-	return icon;
+
+	return ads.map(function(ad) {
+		ad.icon = getIcon(ad.category);
+		return ad;
+	});
 }
 },{}],12:[function(require,module,exports){
 /**

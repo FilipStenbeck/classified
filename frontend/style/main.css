@@ -24,6 +24,9 @@
 	border-radius: 5px;
 	min-width: 300px;
 	min-height: 300px;
+	-webkit-box-shadow: 1px 1px 1px 0px #c2d1de;
+	-moz-box-shadow:    1px 1px 1px 0px #c2d1de;
+	box-shadow:         1px 1px 1px 0px #c2d1de;
 }
 
 .ad .title {
