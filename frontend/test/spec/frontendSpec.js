@@ -29,20 +29,14 @@ describe("Classified frontend", function() {
 			    expect(scope.ads.length).toBeGreaterThan(0);
 			}));
 
-			it("All ads coming from the server should have ids", inject(function($rootScope, $controller, $httpBackend){
+	  		it("ads sould get an icon", inject(function($rootScope, $controller, $httpBackend){
 				var ctrl, scope = $rootScope.$new();
 	        		
 			    ctrl = $controller("FilterCtrl", { $scope: scope });
 	        	$httpBackend.when("GET", BACKEND_URL + "/ad").respond(data);
-			       	
-			    //No ads before getting data from server
-			    expect(scope.ads).toEqual([]);
-			       	
 			    $httpBackend.flush();
-			       	
-			 	//Ads from server should have 
-			    expect(scope.ads[0]._id).toEqual(data[0]._id);
-
+			    
+			    expect(scope.ads[0].icon).not.toBe(null);
 			}));
 		});
 	});
