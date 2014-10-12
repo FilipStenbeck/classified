@@ -17,10 +17,10 @@ require('angular').module('classified').controller('FilterCtrl', function ($scop
    	});
 
 	//set an icon on each ad and then update UI
-	showAds = function (data) {
+	var showAds = function (data) {
 		$scope.ads = iconUtil(data);
 	};
-	
+
 	//Get ads from server
 	if (topic) {
 		adService.getSomeAds(topic, showAds);

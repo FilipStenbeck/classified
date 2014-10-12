@@ -22969,9 +22969,10 @@ var styleDirective = valueFn({
 },{}],3:[function(require,module,exports){
 require('angular').module('classified', ['ngRoute']);
 require('./routers/approuter');
+require('./directives');
 require('./controllers');
 require('./services');
-},{"./controllers":5,"./routers/approuter":7,"./services":10,"angular":2}],4:[function(require,module,exports){
+},{"./controllers":5,"./directives":8,"./routers/approuter":9,"./services":12,"angular":2}],4:[function(require,module,exports){
 require('angular').module('classified').controller('FilterCtrl', function ($scope, $rootScope, $routeParams, adService, filterService) {
 	var topic = $routeParams.topic,
 		filter = $routeParams.filter;
@@ -22991,10 +22992,10 @@ require('angular').module('classified').controller('FilterCtrl', function ($scop
    	});
 
 	//set an icon on each ad and then update UI
-	showAds = function (data) {
+	var showAds = function (data) {
 		$scope.ads = iconUtil(data);
 	};
-	
+
 	//Get ads from server
 	if (topic) {
 		adService.getSomeAds(topic, showAds);
@@ -23002,7 +23003,7 @@ require('angular').module('classified').controller('FilterCtrl', function ($scop
 		adService.getAllAds(showAds);
 	}
 });
-},{"../utils/iconUtil":11,"angular":2}],5:[function(require,module,exports){
+},{"../utils/iconUtil":13,"angular":2}],5:[function(require,module,exports){
 require('./filterCtrl');
 require('./newCtrl');
 },{"./filterCtrl":4,"./newCtrl":6}],6:[function(require,module,exports){
@@ -23019,6 +23020,27 @@ require('angular').module('classified').controller('NewCtrl', function ($scope, 
 });
 
 },{"angular":2}],7:[function(require,module,exports){
+require('angular').module('classified').directive("adCard", function ($http) {
+   return {
+        restrict: "E",
+        scope: false,
+        templateUrl: 'templates/adcard.html',
+        link: function (scope, element) {
+            
+            //clicklistner to navigate to category when clicking icon
+            setTimeout(function() {
+                var category = $(element).find('img').data('category');
+                $(element).find('img').click(function(event) {
+                    window.location.href = "/#/list?topic=" + category;
+                });
+            }, 1);
+        }
+    };
+});
+
+},{"angular":2}],8:[function(require,module,exports){
+require('./adCard');
+},{"./adCard":7}],9:[function(require,module,exports){
 'use strict';
 
 require('angular');
@@ -23039,7 +23061,7 @@ require('angular').module('classified').config(function ($routeProvider) {
     });
 });
 
-},{"angular":2,"angular-route":1}],8:[function(require,module,exports){
+},{"angular":2,"angular-route":1}],10:[function(require,module,exports){
 require('angular').module('classified').factory('adService', function ($http) {
 
    var ROOT_URL = 'http://localhost:9000/ad';
@@ -23078,7 +23100,7 @@ require('angular').module('classified').factory('adService', function ($http) {
     };
 });
 
-},{"angular":2}],9:[function(require,module,exports){
+},{"angular":2}],11:[function(require,module,exports){
 require('angular').module('classified').factory('filterService', function ($http) {
 
     var filter = "";
@@ -23092,11 +23114,11 @@ require('angular').module('classified').factory('filterService', function ($http
         }
     };
 });
-},{"angular":2}],10:[function(require,module,exports){
+},{"angular":2}],12:[function(require,module,exports){
 require('./adService');
 require('./filterService');
 
-},{"./adService":8,"./filterService":9}],11:[function(require,module,exports){
+},{"./adService":10,"./filterService":11}],13:[function(require,module,exports){
 module.exports = function (ads) {
 	
 	function getIcon (category) {
@@ -23121,7 +23143,7 @@ module.exports = function (ads) {
 		return ad;
 	});
 }
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /**
  * @license AngularJS v1.2.25
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -25299,7 +25321,7 @@ if(window.jasmine || window.mocha) {
 
 
 })(window, window.angular);
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 require('angular');
 require('angular-mocks');
 
@@ -25350,10 +25372,10 @@ describe("Classified frontend", function() {
 	});
 });
 
-},{"../../js/app":3,"./specHelper":15,"angular":2,"angular-mocks":12}],14:[function(require,module,exports){
+},{"../../js/app":3,"./specHelper":17,"angular":2,"angular-mocks":14}],16:[function(require,module,exports){
 require('./frontendSpec.js');
 
-},{"./frontendSpec.js":13}],15:[function(require,module,exports){
+},{"./frontendSpec.js":15}],17:[function(require,module,exports){
 var helper = {};
 
 helper.mockData = [ { title: 'Opel',
@@ -25391,4 +25413,4 @@ contact:
 _id: 'rQ8rDyJ74WOabB7A' } ];
 
 module.exports = helper;
-},{}]},{},[14]);
+},{}]},{},[16]);

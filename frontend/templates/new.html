@@ -4,6 +4,7 @@
   <div class="form-group">
     <label for="inputTitle">Title</label>
     <input type="text" ng-model="ad.title" class="form-control" id="inputTitle" placeholder="Enter title" required>
+    <span class="required-icon glyphicon glyphicon-remove"></span>
   </div>
   <div class="form-group">
     <label for="inputPrice">Price</label>
@@ -12,11 +13,13 @@
   <div class="form-group">
     <label for="inputDescription">Description</label>
     <textarea class="form-control" ng-model="ad.description" id="inputDescription" rows="3" placeholder="Enter description" required></textarea>
+    <span class="required-icon-up glyphicon glyphicon-remove"></span>
   </div>
   <hr>
   <div class="form-group">
     <label for="inputEmail" required>Contact email</label>
     <input type="email" class="form-control" ng-model="ad.email" id="inputEmail" placeholder="Enter email" required>
+     <span class="required-icon glyphicon glyphicon-remove"></span>
   </div>
   <div class="form-group">
     <label for="inputPhone">Contact phone</label>
@@ -25,6 +28,7 @@
   <div class="form-group">
     <label for="inputCity">City</label>
     <input type="text" class="form-control" ng-model="ad.city" id="inputCity" placeholder="Enter city" required>
+     <span class="required-icon glyphicon glyphicon-remove"></span>
   </div>
 
   <div class="form-group">
@@ -35,6 +39,7 @@
         <option value="phones">Phones</option>
         <option value="services">Services</option>
     </select>
+    <span class="required-icon glyphicon glyphicon-remove"></span>
 </div>
   <button type="submit" class="btn btn-primary">Create</button>
 </form>

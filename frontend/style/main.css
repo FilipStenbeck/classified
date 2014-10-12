@@ -41,6 +41,7 @@
 
 .ad .main img {
 	width: 40px;
+	cursor: pointer;
 }
 
 .ad .contact {
@@ -63,4 +64,18 @@
 
 .new-ad form {
 	max-width: 480px;
+}
+
+.required-icon {
+	font-size: 0.7em;
+	float: right;
+	margin-top: -24;
+	margin-right: -20px
+}
+
+.required-icon-up {
+	font-size: 0.7em;
+	float: right;
+	margin-top: -72;
+	margin-right: -20px
 }
