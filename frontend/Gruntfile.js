@@ -47,19 +47,31 @@ module.exports = function (grunt) {
               options: {
                   open: true,
               }
-          }
-      }
-
+          	}
+      	},
+      	// Project configuration.
+ 	 	uglify: {
+    		options: {
+      			mangle: false,
+      			sourceMap: true
+    		},
+    		dist: {
+      			files: {
+        			'build/browserify-bundle.js': ['build/browserify-bundle.js']
+      			}
+    		}
+  		}
  	});
   	
   	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-browserify');
+	grunt.loadNpmTasks('grunt-contrib-uglify');	
 
 	grunt.registerTask('serve', ['build', 'connect:livereload', 'watch']);
 
-	grunt.registerTask('build', ['clean', 'browserify']);
+	grunt.registerTask('build', ['clean', 'browserify', 'uglify']);
 
 	// Default task(s)
 	grunt.registerTask('default', ['serve']);
