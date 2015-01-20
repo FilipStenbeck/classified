@@ -31,7 +31,6 @@ describe("Classified frontend", function() {
 
 	  		it("ads sould get an icon", inject(function($rootScope, $controller, $httpBackend){
 				var ctrl, scope = $rootScope.$new();
-	        		
 			    ctrl = $controller("FilterCtrl", { $scope: scope });
 	        	$httpBackend.when("GET", BACKEND_URL + "/ad").respond(data);
 			    $httpBackend.flush();
