@@ -15,7 +15,5 @@ describe('New ad page', function() {
       expect(element(by.model('ad.price')).getTagName()).toEqual('input');
       expect(element(by.model('ad.description')).getTagName()).toEqual('textarea');
     });
-
-
-
 });
+

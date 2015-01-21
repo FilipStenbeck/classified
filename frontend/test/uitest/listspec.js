@@ -1,7 +1,6 @@
 describe('Classified page', function() {
 
-
-  describe('list page', function() {
+    describe('list page', function() {
 
     beforeEach(function() {
        browser.get('http://localhost:9001/#/list');
@@ -41,4 +40,3 @@ describe('Classified page', function() {
     });
   });
 });
-
